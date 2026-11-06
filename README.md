@@ -2,7 +2,7 @@
 
 A full stack web app that gives a health assessment from height, weight, waist circumference, age group and activity level: body mass index, waist circumference category, daily energy need and macronutrients.
 
-This is a rebuild of my earlier JavaScript-only version. The calculations now run in a Flask REST API, results are stored in PostgreSQL, and the app runs in Docker containers with automated tests in GitHub Actions.
+This is a rebuild of my earlier JavaScript-only version. The front end is now a React app, the calculations run in a Flask REST API, results are stored in PostgreSQL, and the app runs in Docker containers with automated tests and builds in GitHub Actions.
 
 > The results are indicative and not medical advice.
 
@@ -12,8 +12,8 @@ This is a rebuild of my earlier JavaScript-only version. The calculations now ru
 
 - **Back end:** Python, Flask, Flask-SQLAlchemy
 - **Database:** PostgreSQL (SQLite for local development and tests)
-- **Front end:** HTML5, CSS3, JavaScript (fetch API)
-- **DevOps:** Docker, Docker Compose, GitHub Actions (pytest + Docker build)
+- **Front end:** React, Vite, JavaScript, HTML5, CSS3
+- **DevOps:** Docker (multi-stage build), Docker Compose, GitHub Actions (pytest, lint, front end build, Docker build)
 
 ## Run with Docker
 
@@ -26,6 +26,8 @@ Open http://localhost:5000
 
 ## Run locally without Docker
 
+Back end (terminal 1):
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
@@ -33,7 +35,25 @@ pip install -r requirements.txt
 flask --app app run --debug
 ```
 
-Without `DATABASE_URL` the app uses a local SQLite file.
+Front end (terminal 2):
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open http://localhost:5173. Vite forwards `/api` calls to Flask. Without `DATABASE_URL` the back end uses a local SQLite file.
+
+## Project structure
+
+```
+app.py          Flask app, database model and API routes
+health.py       Calculations and input validation
+tests/          pytest tests for the calculations and the API
+frontend/src/   React components, API calls and table data
+Dockerfile      Builds the React app, then the Python image that serves it
+```
 
 ## API
 
@@ -66,11 +86,11 @@ Invalid input returns `400` with an error message per field.
 pytest
 ```
 
-Tests cover the calculations, input validation and the API endpoints. They run automatically on every push.
+Tests cover the calculations, input validation and the API endpoints. On every push GitHub Actions runs the tests, lints and builds the front end, and builds the Docker image.
 
 ## Data protection
 
 - Only anonymous measurements are stored. The name is used in the browser for the greeting and is never sent to the server.
 - All input is validated on the server.
-- User input is shown with `textContent`, not `innerHTML`, so it cannot run as code.
+- React escapes all text it renders, so user input cannot run as code.
 - The database password comes from an environment variable and is not committed to the repository.

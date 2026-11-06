@@ -3,3 +3,8 @@
 instance/
 __pycache__/
 .pytest_cache/
+static
+frontend/node_modules
+.dockerignore
+static/
+node_modules/

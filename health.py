@@ -80,8 +80,8 @@ def waist_category(waist_cm, gender):
     if waist_cm < slight:
         return "normal-waist"
     if waist_cm < significant:
-        return "slight-health-hazar"
-    return "significant-health-hazar"
+        return "slight-health-hazard"
+    return "significant-health-hazard"
 
 
 def daily_energy_kcal(weight_kg, gender, age_group, free_activity, work_activity):

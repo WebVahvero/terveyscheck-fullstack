@@ -175,3 +175,24 @@ div.health-statement p {
         width: 95%;
     }
 }
+
+/*--ADDED FOR THE REACT VERSION--*/
+tr.highlight,
+td.highlight {
+    background-color: rgba(34, 209, 238, .5);
+}
+
+div.form-wrapper form input[aria-invalid="true"] {
+    outline: 2px solid #ff6b6b;
+}
+
+span.field-error {
+    color: #ffe0e0;
+    font-size: 0.85rem;
+    margin: -6px 0 8px;
+}
+
+section.data button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
