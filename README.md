@@ -15,6 +15,18 @@ This is a rebuild of my earlier JavaScript-only version. The front end is now a 
 - **Front end:** React, Vite, JavaScript, HTML5, CSS3
 - **DevOps:** Docker (multi-stage build), Docker Compose, GitHub Actions (pytest, lint, front end build, Docker build)
 
+# Tech stack
+
+## Architecture
+
+```mermaid
+flowchart LR
+    A["React app<br/>frontend/"] -- "POST /api/assessments<br/>JSON" --> B["Flask API<br/>app.py"]
+    B -- "result as JSON" --> A
+    B --> C["health.py<br/>validate_input()<br/>assess()"]
+    B -- "SQL" --> D[("PostgreSQL<br/>assessment table")]
+```
+
 ## Run with Docker
 
 ```bash
