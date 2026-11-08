@@ -6,7 +6,7 @@ This is a rebuild of my earlier JavaScript-only version. The front end is now a 
 
 > The results are indicative and not medical advice.
 
-![Screenshot](Terveycheck-app.png)
+![Screenshot](docs/Terveycheck-app.png)
 
 ## Tech stack
 
