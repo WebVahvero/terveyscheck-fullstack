@@ -13,7 +13,7 @@ def test_bmi_category_limits():
 
 def test_waist_limits_depend_on_gender():
     assert waist_category(90, "male") == "normal-waist"
-    assert waist_category(90, "female") == "significant-health-hazar"
+    assert waist_category(90, "female") == "significant-health-hazard"
 
 
 def test_missing_values_give_errors():
